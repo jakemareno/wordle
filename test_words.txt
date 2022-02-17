@@ -1,6 +1,4 @@
+araba
 apple
-bread
-grape
-olive
-salsa
-pasta
+lingo
+abcde
