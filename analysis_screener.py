@@ -1,4 +1,4 @@
-wordfile = open("english_words.txt", "r")
+wordfile = open("wordle_list.txt", "r")
 wordlist = wordfile.read()
 
 
@@ -14,7 +14,7 @@ while ord(counter) <= ord("Z"):
 GREEN_POINTS = 3
 YELLOW_POINTS = 2
 DUPLICATE_REDUCTION_FACTOR = 0.6 # percent multiplier in points for being a duplicate
-S_REDUCTION_FACTOR = 0.5 # reduce effectiveness of S due to plurals
+TOP_QUANTITY = 10
 
 
 def score_letter_position(letter: str, words: list, index: int, occurences: int) -> int:
@@ -24,17 +24,13 @@ def score_letter_position(letter: str, words: list, index: int, occurences: int)
         for i in range(0, len(word)):
             if word[i] == letter:
                 if i == index:
-                    if not letter == "S":
-                        score += GREEN_POINTS
+                    score += GREEN_POINTS
                 else:
-                    if not letter == "S":
-                        score += YELLOW_POINTS
-                    else:
-                        score += YELLOW_POINTS*S_REDUCTION_FACTOR
-
+                    score += YELLOW_POINTS
 
     if occurences > 1:
         return int(score*DUPLICATE_REDUCTION_FACTOR)
+
     return score
 
 
@@ -96,7 +92,7 @@ def top_scores(word_dict: dict) -> dict:
     for word, score in sort_by_value(word_dict).items():
         top_scores_dict[word] = score
         i += 1
-        if i >= 20:
+        if i >= TOP_QUANTITY:
             break
 
     return top_scores_dict
@@ -144,7 +140,7 @@ def main():
             scores = score_words(possible_words)
             scores = top_scores(scores)
 
-            print("Top 20 best choices for next word: ")
+            print(f"Top {TOP_QUANTITY} best choices for next word: ")
             i = 1
             for word, score in scores.items():
                 print(f"{i}) {word}")

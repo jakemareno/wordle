@@ -1,4 +1,4 @@
-wordfile = open("english_words.txt", "r") # List of all English words
+wordfile = open("wordle_list.txt", "r") # List of all English words
 wordlist = wordfile.read()
 
 

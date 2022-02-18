@@ -1,6 +1,6 @@
 import time
 
-wordfile = open("english_words.txt", "r")
+wordfile = open("wordle_list.txt", "r")
 wordlist = wordfile.read()
 
 
@@ -23,7 +23,7 @@ while ord(counter) <= ord("Z"):
 GREEN_POINTS = 3
 YELLOW_POINTS = 2
 DUPLICATE_REDUCTION_FACTOR = 0.6 # percent multiplier in points for being a duplicate
-S_REDUCTION_FACTOR = 0.5
+
 
 def score_letter(letter: str, words: list) -> int:
     """Returns the amount of times a letter occurs in a given list of words."""
@@ -43,13 +43,9 @@ def score_letter_position(letter: str, words: list, index: int, occurences: int)
         for i in range(0, len(word)):
             if word[i] == letter:
                 if i == index:
-                    if not letter == "S":
-                        score += GREEN_POINTS
+                    score += GREEN_POINTS
                 else:
-                    if not letter == "S":
-                        score += YELLOW_POINTS
-                    else:
-                        score += YELLOW_POINTS*S_REDUCTION_FACTOR
+                    score += YELLOW_POINTS
 
 
     if occurences > 1:
